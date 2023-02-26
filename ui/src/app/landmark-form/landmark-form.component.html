@@ -1,0 +1,43 @@
+<form *ngIf="theForm" [formGroup]="theForm">
+  <h3>Landmark Details</h3>
+
+  <div formGroupName="whitelableInfo">
+    <div class="mb-3">
+      <label for="url" class="form-label">Image URL</label>
+      <input
+        formControlName="url"
+        type="text"
+        class="form-control"
+        id="url"
+        placeholder="Enter url"
+      />
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="name" class="form-label">Name</label>
+    <input
+      formControlName="name"
+      type="text"
+      class="form-control"
+      id="name"
+      placeholder="Enter name"
+    />
+  </div>
+  <div formGroupName="description">
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <input
+        formControlName="description"
+        type="text"
+        class="form-control"
+        id="description"
+        placeholder="Enter description"
+      />
+    </div>
+  </div>
+
+  <a routerLink="/" class="btn btn-info m-1">Back</a>
+  <button (click)="submit()" class="btn btn-primary">Submit</button>
+</form>
+
+

@@ -1,0 +1,40 @@
+<h1>Landmark List</h1>
+
+<div class="input-group mb-3 d-flex flex-row">
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Enter"
+    aria-label="Search landmark"
+    aria-describedby="button-addon2"
+    [(ngModel)]="searchText"
+  />
+  <button
+    class="btn btn-outline-secondary btn-primary"
+    type="button"
+    id="button-addon2"
+    style="color: white"
+    (click)="search()"
+  >
+    Search Landmark
+  </button>
+</div>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Identifier</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="landmarks.length > 0">
+    <tr *ngFor="let landmark of landmarks" style="cursor: pointer">
+      <td>{{ landmark.id }}</td>
+      <td>
+        <a routerLink="/landmarks/edit/{{ landmark.id }}">{{ landmark.name }}</a>
+      </td>
+      <td>{{ landmark.identifier }}</td>
+    </tr>
+  </tbody>
+</table>
