@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-landmark-form',
@@ -27,7 +28,7 @@ export class LandmarkFormComponent implements OnInit {
 
     if (id) {
       this.http
-        .get(`https://localhost:4000/landmarks/${id}`)
+        .get(`${environment.landmarksUrl}/${id}`)
         .subscribe({
           next: (response: any) => {
             console.log(response.data);
@@ -43,15 +44,13 @@ export class LandmarkFormComponent implements OnInit {
             console.log(err);
           },
         });
-    } else {
-      // add
-    }
+    } 
   }
 
   submit() {
     this.http
       .post(
-        'https://localhost:4000/api/landmarks',
+        environment.landmarksUrl,
         JSON.stringify(this.theForm.value),
         {
           headers: {

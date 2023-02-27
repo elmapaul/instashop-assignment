@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LandmarkFormComponent } from './landmark-form/landmark-form.component';
 import { LandmarkListComponent } from './landmark-list/landmark-list.component';
+import { LandmarkPreviewComponent } from './landmark-preview/landmark-preview.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
@@ -18,7 +19,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     LandmarkListComponent, 
     LandmarkFormComponent, 
     HeaderComponent,
-    LoginComponent
+    LoginComponent,
+    LandmarkPreviewComponent
   ],
   imports: [
     BrowserModule,

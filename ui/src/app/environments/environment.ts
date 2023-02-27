@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
+  hostUrl: 'http://localhost:5000',
   landmarksUrl: 'http://localhost:5000/parse/landmarks',
   loginUrl: 'http://localhost:5000/parse/login',
   logOut: 'http://localhost:5000/parse/logout',

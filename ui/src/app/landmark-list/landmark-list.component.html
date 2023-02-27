@@ -22,14 +22,14 @@
 
 <table class="table table-hover">
   <tbody *ngIf="landmarks">
-    <tr *ngFor="let landmark of landmarks" style="cursor: pointer">
+    <tr *ngFor="let landmark of landmarks">
       <td>
         <a (click)="triggerModal(landmark?.photo)">
           <img class="preview-logo" [src]="landmark.photo_thumb" width="70" alt="logo">
         </a>
       </td>
       <td>
-        <a routerLink="/landmarks/edit/{{ landmark.objectId }}">{{ landmark.title }}</a>
+        <a routerLink="{{ landmark.objectId }}">{{ landmark.title }}</a>
       </td>
       <td>
         {{ landmark.short_info }}
@@ -38,6 +38,7 @@
   </tbody>
 </table>
 
+<!-- Image Modal  -->
 <div 
   [style.display]="showModal ? 'block' : 'none'" 
   class="modal" 
