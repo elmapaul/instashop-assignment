@@ -27,7 +27,7 @@ export class LandmarkFormComponent implements OnInit {
 
     if (id) {
       this.http
-        .get(`https://localhost:4000/api/landmarks/${id}`)
+        .get(`https://localhost:4000/landmarks/${id}`)
         .subscribe({
           next: (response: any) => {
             console.log(response.data);

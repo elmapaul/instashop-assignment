@@ -1,0 +1,14 @@
+
+  <nav class="navbar navbar-dark bg-dark p-2">
+    <a class="navbar-brand" href="#">
+      <img src="https://instashop.com/assets/images/logo.png" width="150" class="align-center" alt="Logo">
+    </a>
+    <div class="d-flex flex-row">
+      <a class="navbar" routerLink="/landmarks" href="#" class="p-2">Landmarks</a>
+      
+      <a class="navbar" *ngIf="!user" routerLink="/login" href="#" class="p-2">Log In</a>
+
+      <button *ngIf="user" (click)="logOut()" class="p-2">Log out</button>
+    </div>
+  </nav>
+

@@ -20,23 +20,43 @@
   </button>
 </div>
 
-<table class="table table-striped table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Description</th>
-    </tr>
-  </thead>
-  <tbody *ngIf="landmarks.length > 0">
+<table class="table table-hover">
+  <tbody *ngIf="landmarks">
     <tr *ngFor="let landmark of landmarks" style="cursor: pointer">
-      <td>{{ landmark.name }}</td>
       <td>
-        <a routerLink="/landmarks/edit/{{ landmark.id }}">{{ landmark.name }}</a>
+        <a (click)="triggerModal(landmark?.photo)">
+          <img class="preview-logo" [src]="landmark.photo_thumb" width="70" alt="logo">
+        </a>
       </td>
       <td>
-        {{ landmark.name }}
-        {{ landmark.description }}
+        <a routerLink="/landmarks/edit/{{ landmark.objectId }}">{{ landmark.title }}</a>
+      </td>
+      <td>
+        {{ landmark.short_info }}
       </td>
     </tr>
   </tbody>
 </table>
+
+<div 
+  [style.display]="showModal ? 'block' : 'none'" 
+  class="modal" 
+  id="imagemodal" 
+  tabindex="-1" 
+  role="dialog" 
+  aria-labelledby="myModalLabel" 
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <img 
+          [src]="modalUrl" 
+          id="imagepreview" 
+          style="width: 100%;cursor:pointer;" 
+          (click)="triggerModal()"
+        >
+      </div>
+    </div>
+  </div>
+</div>
