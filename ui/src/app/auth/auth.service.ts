@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { environment } from '../environments/environment';
 import { AuthResponse } from './responseInterface';
 import { BehaviorSubject, throwError } from 'rxjs';
-import { User } from './user.model';
+import { User } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
