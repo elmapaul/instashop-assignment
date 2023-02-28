@@ -32,14 +32,13 @@ const config = {
 
 const app = express();
 
+// Parse init
 Parse.initialize(process.env.APP_ID, process.env.MASTER_KEY);
 Parse.serverURL = process.env.SERVER_URL;
 
 // enabling CORS for any unknown origin
 app.use(cors());
-// parse application/json
-app.use(bodyParser.json())
-// Serve static assets from the /public folder
+app.use(bodyParser.json());
 app.use('/public', express.static(path.join(__dirname, '/public')));
 
 // Serve the Parse API on the /parse URL prefix
@@ -47,42 +46,8 @@ const mountPath = process.env.PARSE_MOUNT || '/parse';
 
 if (!test) {
   const api = new ParseServer(config);
-
   app.use(mountPath, api);
-  
-  // app.get('/parse/landmarks', async (req, res) => {
-  //   let landmarks = [];
-  //   const Landmark = Parse.Object.extend("Landmark");
-  //   const query = new Parse.Query(Landmark)
-  //                          .select(['title','photo','photo_thumb','short_info','objectId'])
-  //                          .descending("order"); 
 
-  //   try {
-  //     landmarks = await query.find();
-  //   } catch(error) {
-  //     console.log(error);
-  //   }
-    
-  //   res.status(200).send(landmarks);
-  // });
-  
-  // Get specific landmark object
-  // app.get('/parse/landmarks/:id', async (req, res) => {
-  //   let landmark;
-  //   const { id } = req.params;
-  //   const Landmark = Parse.Object.extend("Landmark");
-  //   const query = new Parse.Query(Landmark); 
-  //   query.get(id);
-
-  //   try {
-  //     landmark = await query.first();
-  //   } catch(error) {
-  //     console.log(error);
-  //   }
-    
-  //   res.status(200).send(landmark);
-  // });
-  
   // Update landmark object
   app.put('/landmarks/:id', async (req, res) => {
     const { id } = req.params;
@@ -121,6 +86,7 @@ if (!test) {
 }
 
 const port = process.env.SERVER_PORT || 1337;
+
 if (!test) {
   const httpServer = require('http').createServer(app);
   httpServer.listen(port, function () {
