@@ -16,22 +16,16 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(form: NgForm) {
-    if (!form.valid) {
-      return;
-    }
+    if (!form.valid) return; 
+
     const username = form.value.username;
     const password = form.value.password;
+
     this.authService.login(username, password)
-      .subscribe(resData => {
-        console.log(resData);
-        this.router.navigate(['/']);
-      },
-      errorMessage => {
-        console.log(errorMessage);
-        this.error = errorMessage;
+      .subscribe(resData => this.router.navigate(['/']),
+        errorMessage => { this.error = errorMessage; }
+      );
 
-      });
-
-      form.reset();
+    form.reset();
   }
 }

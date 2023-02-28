@@ -3,37 +3,36 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from '../environments/environment';
-import { AuthResponse } from './responseInterface';
+import { AuthResponseInterface } from '../interfaces/AuthResponseInterface';
 import { BehaviorSubject, throwError } from 'rxjs';
-import { User } from '../models/user.model';
+import { UserInterface } from '../interfaces/UserInterface';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   constructor(private http: HttpClient, private router: Router) { }
 
-  user = new BehaviorSubject<User | null>(null);
+  user = new BehaviorSubject<UserInterface | null>(null);
 
   login(username: string, password: string) {
-    return this.http.post<AuthResponse>(environment.loginUrl,
+    return this.http.post<AuthResponseInterface>(environment.loginUrl,
       {
         username: username,
         password: password
       }).pipe(
         catchError(this.handleError),
-        tap(resData => {
-          this.handleAuthentication(resData.username, resData.email, resData.sessionToken, resData.objectId);
-        })
+        tap(user => this.storeUserDate(user))
       );
   };
 
   autoLogin() {
     try {
-      const user: User = JSON.parse(localStorage.getItem('userData') || '{}');
+      const serializedUser = localStorage.getItem('currentUser');
 
-      if (Object.keys(user).length !== 0) {
-        const initiatedUser = new User(user.username, user.email, user._token, user.id);
-        this.user.next(initiatedUser);
-      }      
+      if (serializedUser) {
+        // Deserialize the user object and pass it afterwards as global value
+        const user = JSON.parse(serializedUser);
+        this.user.next(user);
+      }
     } catch (error) {
       console.log('No local user exists')
     }
@@ -45,16 +44,19 @@ export class AuthService {
         catchError(this.handleError),
         tap(resData => {
           this.user.next(null);
-          localStorage.removeItem('userData');
+          localStorage.removeItem('currentUser');
+
           this.router.navigate(['/']);
         })
       );
   };
 
-  private handleAuthentication(username: string, email: string, sessionToken: string, objectId: string) {
-    const user = new User(username, email, sessionToken, objectId);
+  private storeUserDate(user: UserInterface) {
+    const serializedUser = JSON.stringify(user);
+    // Store the serialized user object in local storage
+    localStorage.setItem('currentUser', serializedUser);
+
     this.user.next(user);
-    localStorage.setItem('userData', JSON.stringify(user));
   };
 
   private handleError(errorRes: HttpErrorResponse) {

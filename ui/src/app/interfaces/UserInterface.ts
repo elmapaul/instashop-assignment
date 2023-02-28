@@ -1,4 +1,4 @@
-export interface AuthResponse {
+export interface UserInterface {
   username: string,
   email: string,
   createdAt: string,
@@ -6,5 +6,7 @@ export interface AuthResponse {
   emailVerified: true,
   ACL: {},
   sessionToken: string,
-  objectId: string
+  objectId: string,
+  _token: string,
+  id: string
 }

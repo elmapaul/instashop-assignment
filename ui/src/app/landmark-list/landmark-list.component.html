@@ -1,4 +1,4 @@
-<h1>Available Landmarks</h1>
+<h1>Landmarks</h1>
 
 <div class="input-group mb-3 d-flex flex-row pt-3">
   <input
@@ -8,6 +8,7 @@
     aria-label="Search landmark"
     aria-describedby="button-addon2"
     [(ngModel)]="searchText"
+    (keydown.enter)="search()"
     autofocus
   />
   <button

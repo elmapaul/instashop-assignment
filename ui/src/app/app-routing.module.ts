@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { LandmarkFormComponent } from './landmark-form/landmark-form.component';
 import { LandmarkListComponent } from './landmark-list/landmark-list.component';
 import { LoginComponent } from './login/login.component';
-import { AuthGuard } from './auth/auth.guard';
 import { LandmarkPreviewComponent } from './landmark-preview/landmark-preview.component';
 
 const routes: Routes = [
@@ -14,8 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'landmarks/edit/:id',
-    component: LandmarkFormComponent,
-    // canActivate: [AuthGuard]
+    component: LandmarkFormComponent
   },
   {
     path: 'login',

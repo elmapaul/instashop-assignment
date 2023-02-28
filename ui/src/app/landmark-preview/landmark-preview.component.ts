@@ -1,11 +1,10 @@
-// import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '../environments/environment';
 import * as Parse from 'parse';
+import { AuthService } from '../auth/auth.service';
 
 Parse.initialize(environment.appId, environment.masterKey);
-(Parse as any).serverURL = `${environment.serverUrl}`;
 
 @Component({
   selector: 'app-landmark-preview',
@@ -14,13 +13,15 @@ Parse.initialize(environment.appId, environment.masterKey);
 })
 export class LandmarkPreviewComponent implements OnInit {
   landmark?: any;
+  user: any;
+  canUpdate: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    // private http: HttpClient
-  ) {}
+    private authService: AuthService
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     const id = this.activatedRoute.snapshot.paramMap.get('id');
 
     if (id) {
@@ -36,12 +37,20 @@ export class LandmarkPreviewComponent implements OnInit {
           }
         }).catch((err) => console.log(err));
 
-      // REST way
+      // Alternative way with REST
       // this.http.get(`${environment.hostUrl}/parse/landmarks/${id}`)
       //   .subscribe({
       //     next: (response: any) => this.landmark = response,
       //     error: (err) => console.log(err),
       //   });
+    } 
+    
+    // Get current user and check if 'write' permission exists
+    if (this.authService.user) {
+      this.user = this.authService.user;
+      const userObj = this.user._value;
+      
+      this.canUpdate = userObj?.ACL[userObj.objectId]?.write;
     } 
   }
 }
