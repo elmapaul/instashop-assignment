@@ -13,7 +13,6 @@ export class LandmarkFormComponent implements OnInit {
   landmark?: any;
   landmarkForm: FormGroup;
   fileName: string = '';
-  imageData: string = '';
 
   constructor(
     private activatedRoute: ActivatedRoute,

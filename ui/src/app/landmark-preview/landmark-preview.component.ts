@@ -22,12 +22,8 @@ export class LandmarkPreviewComponent implements OnInit {
     if (id) {
       this.http.get(`${environment.hostUrl}/parse/landmarks/${id}`)
         .subscribe({
-          next: (response: any) => {
-            this.landmark = response;
-          },
-          error: (err) => {
-            console.log(err);
-          },
+          next: (response: any) => this.landmark = response,
+          error: (err) => console.log(err),
         });
     } 
   }

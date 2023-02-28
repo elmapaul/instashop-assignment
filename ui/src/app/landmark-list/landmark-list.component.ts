@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from '../environments/environment';
 import { Landmark } from './landmark.model';
 
-
 @Component({
   selector: 'app-landmark-list',
   templateUrl: './landmark-list.component.html',
@@ -11,7 +10,7 @@ import { Landmark } from './landmark.model';
 })
 export class LandmarkListComponent implements OnInit {
   landmarks: Landmark[] = [];
-  searchText: string = "";
+  searchText: string = '';
   showModal: boolean = false;
   modalUrl: string = '';
 
@@ -19,15 +18,9 @@ export class LandmarkListComponent implements OnInit {
 
   ngOnInit(): void {
     this.http
-      .get(`${environment.landmarksUrl}`)
-      .subscribe({
-        next: (response: any) => {
-          console.log(response);
-          this.landmarks = response;
-        },
-        error: (err) => {
-          console.log(err);
-        },
+      .get(`${environment.landmarksUrl}`).subscribe({
+        next: (response: any) => this.landmarks = response,
+        error: (err) => console.log(err),
       });
   }
 
@@ -40,7 +33,11 @@ export class LandmarkListComponent implements OnInit {
     this.showModal = !this.showModal;
   }
 
-  search(){
-    // search code
+  search = async () => {
+    this.http.get(`${environment.hostUrl}/landmarks/search?text=${this.searchText}`)
+      .subscribe({
+        next: (response: any) => this.landmarks = response,
+        error: (err) => console.log(err),
+      });
   }
 }
