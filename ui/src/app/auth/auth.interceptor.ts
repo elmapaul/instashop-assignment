@@ -17,18 +17,20 @@ export class AuthInterceptor implements HttpInterceptor {
       take(1),
       exhaustMap(user => {
         let modifiedReq;
+        const headers = {
+          'X-Parse-Application-Id': environment.appId,
+          // 'X-Parse-REST-API-Key': environment.masterKey,
+          'X-Parse-Master-Key': environment.masterKey,
+          'Content-Type':  'application/json'
+        };
 
         if (!user) {
-          modifiedReq = req.clone({
-            setHeaders: {
-              'X-Parse-Application-Id': environment.appId
-            }
-          });
+          modifiedReq = req.clone({ setHeaders: headers });
         } else {
           modifiedReq = req.clone({
             setHeaders: {
-              Authorization: `${user._token}`,
-              'X-Parse-Application-Id': environment.appId
+              ...headers,
+              Authorization: `${user._token}`
             }
           });
         }

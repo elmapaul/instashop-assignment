@@ -1,43 +1,81 @@
-<form *ngIf="theForm" [formGroup]="theForm">
+<form *ngIf="landmarkForm" [formGroup]="landmarkForm">
   <h3>Landmark Details</h3>
 
-  <div formGroupName="whitelableInfo">
-    <div class="mb-3">
-      <label for="url" class="form-label">Image URL</label>
-      <input
-        formControlName="url"
-        type="text"
-        class="form-control"
-        id="url"
-        placeholder="Enter url"
-      />
-    </div>
-  </div>
-  <div class="mb-3">
-    <label for="name" class="form-label">Name</label>
+  <div class="mb-3 mt-4">
+    <label for="title" class="form-label">Title</label>
     <input
-      formControlName="name"
+      formControlName="title"
       type="text"
       class="form-control"
-      id="name"
-      placeholder="Enter name"
+      id="title"
+      placeholder="Enter title"
     />
   </div>
-  <div formGroupName="description">
+
+  <div>
+    <div class="mb-3">
+      <label for="short_info" class="form-label">Short info</label>
+      <textarea
+        formControlName="short_info"
+        type="text"
+        rows="4" 
+        cols="50"
+        class="form-control"
+        id="short_info"
+        placeholder="Enter short information"
+      ></textarea>
+    </div>
+  </div>
+
+  <div>
     <div class="mb-3">
       <label for="description" class="form-label">Description</label>
-      <input
+      <textarea
+        rows="8" 
+        cols="50"
         formControlName="description"
         type="text"
         class="form-control"
         id="description"
         placeholder="Enter description"
+      ></textarea>
+    </div>
+  </div>
+  
+  <div class="mb-3">
+    <label for="url" class="form-label">URL</label>
+    <input
+      formControlName="url"
+      type="text"
+      name="url"
+      class="form-control"
+      id="url"
+      placeholder="Enter url"
+    />
+  </div>
+  
+  <div class="d-flex align-items-center">
+    <div class="mr-5 p-2">
+      <img class="mr-5" [src]="landmark?.photo_thumb" alt="photo" width="70" style="border-radius: 5px;"/>
+    </div>
+    <div class="mb-3">
+      <label for="photo" class="form-label"></label>
+      <input
+        type="file"
+        class="form-control"
+        id="photo"
+        placeholder="Enter photo"
+        (change)="uploadFile($event)"
+        #fileUpload
       />
     </div>
   </div>
 
+  <br/>
+  <hr/>
+
   <a routerLink="/" class="btn btn-info m-1">Back</a>
-  <button (click)="submit()" class="btn btn-primary">Submit</button>
+  <button (click)="submit()" class="btn btn-primary" [disabled]="!landmarkForm.valid">Submit</button>
 </form>
 
 

@@ -29,7 +29,7 @@
         </a>
       </td>
       <td>
-        <a routerLink="{{ landmark.objectId }}">{{ landmark.title }}</a>
+        <a [routerLink]="landmark.objectId">{{ landmark.title }}</a>
       </td>
       <td>
         {{ landmark.short_info }}

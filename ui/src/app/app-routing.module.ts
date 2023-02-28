@@ -12,24 +12,24 @@ const routes: Routes = [
     redirectTo: 'landmarks',
     pathMatch: 'full'
   },
-    {
-      path: 'landmarks/edit/:id',
-      component: LandmarkFormComponent,
-      canActivate: [AuthGuard]
-    },
-    {
-      path: 'login',
-      component: LoginComponent,
-    },
-    {
-      path: 'landmarks/:id', 
-      component: LandmarkPreviewComponent
-    },
-    {
-      path: 'landmarks',
-      component: LandmarkListComponent,
-      pathMatch: 'full'
-    },
+  {
+    path: 'landmarks/edit/:id',
+    component: LandmarkFormComponent,
+    // canActivate: [AuthGuard]
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: 'landmarks/:id', 
+    component: LandmarkPreviewComponent
+  },
+  {
+    path: 'landmarks',
+    component: LandmarkListComponent,
+    pathMatch: 'full'
+  },
 ];
 
 @NgModule({

@@ -9,7 +9,7 @@ import { environment } from '../environments/environment';
   styleUrls: ['./landmark-preview.component.css'],
 })
 export class LandmarkPreviewComponent implements OnInit {
-  landmarks?: any;
+  landmark?: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -20,12 +20,10 @@ export class LandmarkPreviewComponent implements OnInit {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
 
     if (id) {
-      this.http
-        .get(`${environment.hostUrl}/parse/landmarks/${id}`)
+      this.http.get(`${environment.hostUrl}/parse/landmarks/${id}`)
         .subscribe({
           next: (response: any) => {
-            console.log(response.data);
-            this.landmarks = response;
+            this.landmark = response;
           },
           error: (err) => {
             console.log(err);
