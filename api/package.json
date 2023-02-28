@@ -14,16 +14,17 @@
     "lint-fix": "eslint --cache --fix ./cloud && eslint --cache --fix index.js && eslint --cache --fix ./spec",
     "prettier": "prettier --write '{cloud,spec}/{**/*,*}.js' 'index.js'",
     "start": "node index.js",
-    "start:parse": "parse-server --appId [APPLICATION_ID] --masterKey [MASTER_KEY]",
-    "start:dashboard": "parse-dashboard --dev --appId [APPLICATION_ID] --masterKey [MASTER_KEY] --serverURL [SERVER_URL]",
+    "start:dashboard": "parse-dashboard --dev --appId NqqPKd9Mzzdk0Es6P7NdzXOXNb4tsqdq6Q8p0cZi --masterKey [MASTER_KEY] --host localhost --serverURL http://localhost:5000/parse",
     "test": "mongodb-runner start && jasmine",
     "watch": "nodemon index.js"
   },
   "dependencies": {
     "@types/parse": "^3.0.2",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "4.18.1",
-    "parse": "3.4.2",
+    "parse": "^3.4.2",
     "parse-dashboard": "^5.0.0",
     "parse-server": "5.2.1"
   },
